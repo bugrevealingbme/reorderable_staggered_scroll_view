@@ -414,7 +414,6 @@ class ReorderableStaggeredScrollView extends StatefulWidget {
 class _ReorderableStaggeredScrollViewState
     extends State<ReorderableStaggeredScrollView> {
   List<ReorderableStaggeredScrollViewListItem> _children = const [];
-  bool _isDragging = false;
 
   @override
   void initState() {
@@ -425,7 +424,7 @@ class _ReorderableStaggeredScrollViewState
   @override
   void didUpdateWidget(ReorderableStaggeredScrollView oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.children != oldWidget.children && !_isDragging) {
+    if (widget.children != oldWidget.children && widget.enable) {
       setState(() {
         _children = widget.children;
       });
@@ -442,18 +441,12 @@ class _ReorderableStaggeredScrollViewState
       buildItems: buildItems,
       buildFeedback: widget.buildFeedback,
       axis: widget.axis,
-      onAccept: (item1, item2, value) {
-        _isDragging = false;
-        if (widget.onAccept != null) {
-          widget.onAccept!(item1, item2, value);
-        }
-      },
-      onDragStarted: (item) {
-        _isDragging = true;
-        if (widget.onDragStarted != null) {
-          widget.onDragStarted!(item);
-        }
-      },
+      onAccept: widget.onAccept,
+      onWillAccept: widget.onWillAccept,
+      onLeave: widget.onLeave,
+      onMove: widget.onMove,
+      hitTestBehavior: widget.hitTestBehavior,
+      onDragStarted: widget.onDragStarted,
       onDragUpdate: widget.onDragUpdate,
       onDraggableCanceled: widget.onDraggableCanceled,
       onDragEnd: widget.onDragEnd,
