@@ -424,7 +424,7 @@ class _ReorderableStaggeredScrollViewState
   @override
   void didUpdateWidget(ReorderableStaggeredScrollView oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.children != oldWidget.children && widget.enable) {
+    if (widget.children != oldWidget.children && !widget.enable) {
       setState(() {
         _children = widget.children;
       });
