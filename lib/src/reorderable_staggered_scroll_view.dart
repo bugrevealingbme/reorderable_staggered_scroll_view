@@ -422,6 +422,16 @@ class _ReorderableStaggeredScrollViewState
     _children = widget.children;
   }
 
+  @override
+  void didUpdateWidget(ReorderableStaggeredScrollView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.children != oldWidget.children) {
+      setState(() {
+        _children = widget.children;
+      });
+    }
+  }
+  
   Widget buildContainer({
     required Widget Function(List<Widget>) buildItems,
   }) {
